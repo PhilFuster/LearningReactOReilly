@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe List, constructing elements with data</title>
+  </head>
+  <body>
+    <!-- Target container -->
+    <div id="root"></div>
+    <!-- React library & ReactDOM (Development Version) -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script>
+      // Pure React and JavaScript code
+      const ingredients = [
+        '2 lb salmon',
+        '5 sprigs fresh rosemary',
+        '2 tablespoons olive oil',
+        '2 small lemons',
+        '1 teaspoon kosher salt',
+        '4 cloves of chopped garlic',
+      ];
+      const bakedSalmonRecipe = React.createElement(
+        'section',
+        { id: 'baked-salmon' },
+        React.createElement('h1', null, 'Baked Salmon'),
+        React.createElement(
+          'ul',
+          { className: 'ingredients' },
+          ingredients.map((listing, i) => {
+            const li = React.createElement('li', { key: i }, listing);
+            console.log(li);
+          })
+        ),
+        React.createElement(
+          'section',
+          { className: 'instructions' },
+          React.createElement('h2', null, 'Cooking Instructions'),
+          React.createElement('p', null, 'Preheat the oven to 375 degrees.'),
+          React.createElement(
+            'p',
+            null,
+            'Lightly coat aluminum foil with oil.'
+          ),
+          React.createElement('p', null, 'Place salmon on foil'),
+          React.createElement(
+            'p',
+            null,
+            'Cover with rosemary, sliced lemon, chopped garlic'
+          ),
+          React.createElement(
+            'p',
+            null,
+            'Bake for 15-20 minutes untill cooked through.'
+          ),
+          React.createElement('p', null, 'Remove from oven.')
+        )
+      );
+      ReactDOM.render(bakedSalmonRecipe, document.getElementById('root'));
+    </script>
+  </body>
+</html>

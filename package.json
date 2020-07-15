@@ -1,0 +1,30 @@
+{
+  "name": "learningreactoreilly",
+  "version": "1.0.0",
+  "description": "Philip Fuster's Run through of Learning React by Alex Banks & Eve Porcello",
+  "main": "index.js",
+  "scripts": {
+    "start": "run-script-os",
+    "start:win32": "browser-sync start --server --files '**/*.css, **/*.html, **/*.js, !node_modules/**/*' --directory --port 7777 --browser \"C:\\Program Files\\Firefox Developer Edition\\firefox.exe\"",
+    "//": "Hello! If you are having trouble running this command. Try changing Firefox Developer Edition to FirefoxDeveloperEdition",
+    "start:darwin:linux": "browser-sync start --server --files '**/*.css, **/*.html, **/*.js, !node_modules/**/*' --directory --port 7777 --browser 'firefox'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PhilFuster/LearningReactOReilly.git"
+  },
+  "keywords": [
+    "react",
+    "javascript",
+    "node"
+  ],
+  "author": "Philip Fuster",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PhilFuster/LearningReactOReilly/issues"
+  },
+  "homepage": "https://github.com/PhilFuster/LearningReactOReilly#readme",
+  "devDependencies": {
+    "run-script-os": "^1.1.1"
+  }
+}
