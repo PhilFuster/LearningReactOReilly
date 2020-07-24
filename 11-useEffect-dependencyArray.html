@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Babel Template</title>
+  </head>
+  <body>
+    <!-- React Library & React DOM -->
+    <script src="https://unpkg.com/react@16.8.6/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // JSX code here. Or link to separate JavaScript file that contains JSX.
+      const { useState, useEffect } = React;
+      function App() {
+        const [val, set] = useState('');
+        const [phrase, setPhrase] = useState('example phrase');
+
+        const createPhrase = () => {
+          setPhrase(val);
+          set('');
+        };
+        // on runs when val is changed
+        useEffect(() => {
+          console.log(`typing ${val}`);
+        }, [val]);
+
+        // only runs when phrase changes
+        useEffect(() => {
+          console.log(`saved phrase: "${phrase}"`);
+        }, [phrase]);
+
+        // runs when either val or phrase changes
+        useEffect(() => {
+          console.log(`either val or phrase`);
+        }, [val, phrase]);
+
+        // Only runs after initial render
+        useEffect(() => {
+          console.log('only once after initial render');
+        }, []);
+
+        return (
+          <>
+            <label>Favorite phrase:</label>
+            <input
+              value={val}
+              placeholder={phrase}
+              onChange={(e) => set(e.target.value)}
+            />
+            <button onClick={createPhrase}>send</button>
+          </>
+        );
+      }
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+  </body>
+</html>

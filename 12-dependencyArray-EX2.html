@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>useEffect example</title>
+  </head>
+  <body>
+    <!-- React Library & React DOM -->
+    <script src="https://unpkg.com/react@16.8.6/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <h1>
+      This demo illustrates what happens when you use useEffect, and pass an
+      empty dependency array to it and return a function.
+    </h1>
+    <h1>
+      when pressing the <i>add</i> button a sound will play and another box will
+      display
+    </h1>
+    <h1>
+      When hitting the <i>remove</i> button it will remove the box and display a
+      good bye sound
+    </h1>
+    <div id="root"></div>
+    <audio id="helloChime" src="/sounds/helloWindChimes.wav"></audio>
+    <audio id="goodbyeChime" src="/sounds/goodbyeChimes.wav"></audio>
+    <script type="text/babel">
+      // JSX code here. Or link to separate JavaScript file that contains JSX.
+      const { useState, useEffect } = React;
+
+      const helloChime = document.getElementById('helloChime');
+      const goodbyeChime = document.getElementById('goodbyeChime');
+      const createArray = (length) => [...Array(length)];
+
+      const createBox = () => {};
+      function BoxCreator() {
+        const [totalBoxes, setTotalBoxes] = useState(0);
+        return (
+          <>
+            <div className='boxes'>
+              {createArray(totalBoxes).map((n, i) => {
+                console.log('help');
+                return <Box key={i} />;
+              })}
+              <button onClick={() => setTotalBoxes(totalBoxes + 1)}>Add</button>
+              <button
+                onClick={() =>
+                  setTotalBoxes(totalBoxes > 0 ? totalBoxes - 1 : totalBoxes)
+                }
+              >
+                Remove
+              </button>
+            </div>
+          </>
+        );
+      }
+      const Box = () => {
+        useEffect(() => {
+          console.log('box created boi');
+          helloChime.play();
+          return () => {
+            console.log('box removed from tree dawgs');
+            goodbyeChime.play();
+          };
+        }, []);
+        return (
+          <div
+            className='box'
+            style={{
+              width: '20px',
+              height: '20px',
+              backgroundColor: 'blue',
+            }}
+          ></div>
+        );
+      };
+      ReactDOM.render(<BoxCreator />, document.getElementById('root'));
+    </script>
+  </body>
+</html>

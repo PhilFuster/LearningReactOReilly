@@ -26,5 +26,8 @@
   "homepage": "https://github.com/PhilFuster/LearningReactOReilly#readme",
   "devDependencies": {
     "run-script-os": "^1.1.1"
+  },
+  "dependencies": {
+    "react-icons": "^3.10.0"
   }
 }

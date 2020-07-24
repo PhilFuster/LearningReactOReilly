@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Babel Template</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- React Library & React DOM -->
+    <script src="https://unpkg.com/react@16.8.6/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      // JSX code here. Or link to separate JavaScript file that contains JSX.
+      const { useState, useEffect } = React;
+      function Checkbox() {
+        const [checked, setChecked] = useState(false);
+        const lStorage = window.localStorage;
+
+        useEffect(() => {
+          //alert('checked: ${checked.toString()}');
+          console.log(checked ? 'Yes, checked' : 'No, not checked');
+          lStorage.setItem('checkbox-value', checked);
+          setInterval(() => {
+            console.log(
+              `waited some time.. here is thing from lStorage: ${lStorage.getItem(
+                'checkbox-value'
+              )}`
+            );
+          }, 5000);
+        });
+        return (
+          <>
+            <input
+              type='checkbox'
+              value={checked}
+              onChange={() => setChecked(!checked)}
+            />
+            {checked ? 'checked' : 'not checked'}
+          </>
+        );
+      }
+      ReactDOM.render(<Checkbox />, document.getElementById('root'));
+    </script>
+  </body>
+</html>
