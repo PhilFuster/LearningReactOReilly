@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Babel Template</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- React Library & React DOM -->
+    <script src="https://unpkg.com/react@16.8.6/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      const { useState } = React;
+      const useInput = (initialValue) => {
+        const [value, setValue] = useState(initialValue);
+        return [
+          { value, onChange: (e) => setValue(e.target.value) },
+          () => setValue(initialValue),
+          (priority) => setValue(priority),
+        ];
+      };
+      fetch('https://api.github.com/users/PhilFuster')
+        .then((response) => response.json())
+        .then(console.log)
+        .catch(console.error);
+
+      const submit = (e) => {
+        e.preventDefault();
+      };
+      function GetGithubLogin() {
+        const [inputProps, resetInput] = useInput('');
+        return (
+          <form onSubmit={submit} method='POST'>
+            <label htmlFor='githubLogin'>Github User Login: </label>
+            <input
+              id='githubLogin'
+              type='text'
+              {...inputProps}
+              placeholder='Github Login...'
+              required
+            ></input>
+            <button
+              type='submit'
+              onClick={(e) => {
+                e.preventDefault();
+                resetInput();
+                requestGithubUser(inputProps.value);
+              }}
+            >
+              submit
+            </button>
+          </form>
+        );
+      }
+
+      async function requestGithubUser(githubLogin) {
+        try {
+          const response = await fetch(
+            `https://api.github.com/users/${githubLogin}`
+          );
+          const userData = await response.json();
+          console.log(userData);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      ReactDOM.render(<GetGithubLogin />, document.getElementById('root'));
+    </script>
+  </body>
+</html>
