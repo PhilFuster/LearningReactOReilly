@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Babel Template</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- React Library & React DOM -->
+    <script src="https://unpkg.com/react@16.8.6/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      // A render prop can be two things, a component to be rendered when a condition is met
+      // or a function that will return a component to be rendered.
+      // In this case List takes a property renderEmpty which will render a component when
+      // the data array passed is empty or not passed at all.
+      function List({ data = [], renderEmpty }) {
+        if (!data.length) return renderEmpty;
+        return <p>{data.length} items</p>;
+      }
+      // no data passed so the user will, This list is empty. displayed.
+      ReactDOM.render(
+        <List renderEmpty={<p>This list is empty.</p>}></List>,
+        document.getElementById('root')
+      );
+    </script>
+  </body>
+</html>

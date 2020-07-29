@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Babel Template</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- React Library & React DOM -->
+    <script src="https://unpkg.com/react@16.8.6/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/browse/faker@4.1.0/lib/"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="faker.js" type="text/javascript"></script>
+
+    <script type="text/babel">
+      // JSX code here. Or link to separate JavaScript file that contains JSX.
+      const { fake } = faker;
+      const bigList = [...Array(5000)].map(() => ({
+        name: fake.name.findName(),
+        email: fake.internet.email(),
+        avatar: fake.internet.avatar(),
+      }));
+
+      function List({ data = [], renderItem, renderEmpty }) {
+        return !data.length ? (
+          renderEmpty
+        ) : (
+          <ul>
+            {data.map((item, i) => (
+              <li key={i}>{renderItem(item)}</li>
+            ))}
+          </ul>
+        );
+      }
+      function App() {
+        const renderItem = (item) => (
+          <div style={{ display: 'flex' }}>
+            <img src={item.avatar} alt={item.name} width={50} />
+            <p>
+              {item.name} - {item.email}
+            </p>
+          </div>
+        );
+      }
+    </script>
+  </body>
+</html>

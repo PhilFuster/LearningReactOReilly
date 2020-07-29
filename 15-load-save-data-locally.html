@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Babel Template</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- React Library & React DOM -->
+    <script src="https://unpkg.com/react@16.8.6/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      const { useState, useEffect } = React;
+      const loadJSON = (key) => key && JSON.parse(localStorage.getItem(key));
+      const saveJSON = (key, data) =>
+        localStorage.setItem(key, JSON.stringify(data));
+
+      function GitHubUser({ login }) {
+        const [data, setData] = useState(loadJSON(`user:${login}`));
+
+        useEffect(() => {
+          if (!data) return;
+          if (data.login === login) return;
+          const { name, avatar_url, location } = data;
+          saveJSON(`user:${login}`, {
+            name,
+            login,
+            avatar_url,
+            location,
+          });
+        }, [data]);
+
+        useEffect(() => {
+          if (!login) return;
+          if (data && data.login === login) return;
+          fetch(`https://api.github.com/users/${login}`)
+            .then((response) => response.json())
+            .then(setData)
+            .catch(console.error);
+        }, [login]);
+
+        if (data) return <pre>{JSON.stringify(data, null, 2)}</pre>;
+
+        return null;
+      }
+
+      ReactDOM.render(
+        <GitHubUser login='moonhighway' />,
+        document.getElementById('root')
+      );
+    </script>
+  </body>
+</html>
