@@ -12,6 +12,18 @@
     <script src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
+    <!-- 
+      LocalStorage is a way to store data client side in the browser.
+      This can be used as a way to improve performance of your app.
+      You would save the data from the HTTP request into local storage.
+      And load that data when possible
+      EX:
+      On initial render, LocalStorage is interrogated for the login passed to GitHubUser.
+      A new request will only be fired off if that data is not already in LocalStorage.
+
+      Future renders will check 
+    -->
+
     <script type="text/babel">
       const { useState, useEffect } = React;
       const loadJSON = (key) => key && JSON.parse(localStorage.getItem(key));

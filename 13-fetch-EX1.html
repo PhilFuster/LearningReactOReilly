@@ -19,17 +19,19 @@
         return [
           { value, onChange: (e) => setValue(e.target.value) },
           () => setValue(initialValue),
-          (priority) => setValue(priority),
+          (value) => setValue(value),
         ];
       };
+      //
       fetch('https://api.github.com/users/PhilFuster')
         .then((response) => response.json())
         .then(console.log)
         .catch(console.error);
-
+      //
       const submit = (e) => {
         e.preventDefault();
       };
+      // Form to get a login from the user to search
       function GetGithubLogin() {
         const [inputProps, resetInput] = useInput('');
         return (
@@ -55,7 +57,7 @@
           </form>
         );
       }
-
+      // async function to make fetch request to the github api with login passed.
       async function requestGithubUser(githubLogin) {
         try {
           const response = await fetch(
